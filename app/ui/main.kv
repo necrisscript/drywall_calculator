@@ -1,0 +1,181 @@
+#:import dp kivy.metrics.dp
+#:import webbrowser webbrowser
+
+<DrywallLayout>:
+    orientation: "vertical"
+    padding: dp(12)
+    spacing: dp(10)
+
+    canvas.before:
+        Color:
+            rgba: BACKGROUND
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # Top Bar: Language & Unit Switchers
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: dp(35)
+        spacing: dp(5)
+
+        # Unit Switcher (Metric / Imperial)
+        Button:
+            text: "Metric (m)" if root.current_unit == "metric" else "Imperial (ft)"
+            size_hint_x: None
+            width: dp(110)
+            background_normal: ""
+            background_color: RED_3
+            color: FOREGROUND
+            bold: True
+            on_release: root.toggle_unit()
+
+        Widget:
+
+        Button:
+            text: "EN"
+            size_hint_x: None
+            width: dp(40)
+            background_normal: ""
+            background_color: RED_5 if root.current_lang == "en" else RED_2
+            color: FOREGROUND
+            bold: True
+            on_release: root.change_language("en")
+
+        Button:
+            text: "ES"
+            size_hint_x: None
+            width: dp(40)
+            background_normal: ""
+            background_color: RED_5 if root.current_lang == "es" else RED_2
+            color: FOREGROUND
+            bold: True
+            on_release: root.change_language("es")
+
+        Button:
+            text: "PT"
+            size_hint_x: None
+            width: dp(40)
+            background_normal: ""
+            background_color: RED_5 if root.current_lang == "pt" else RED_2
+            color: FOREGROUND
+            bold: True
+            on_release: root.change_language("pt")
+
+    Label:
+        text: "DRYWALL CALCULATOR"
+        color: FOREGROUND
+        font_size: "24sp"
+        bold: True
+        size_hint_y: None
+        height: dp(40)
+
+    Label:
+        text: root.t_subtitle
+        color: RED_7
+        font_size: "14sp"
+        size_hint_y: None
+        height: dp(24)
+
+    BoxLayout:
+        orientation: "horizontal" if self.width >= dp(650) else "vertical"
+        spacing: dp(10)
+
+        # Left Panel: Inputs
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(10)
+            padding: dp(5)
+            size_hint_x: 0.5 if self.parent.width >= dp(650) else 1
+
+            Label:
+                text: root.t_area
+                color: FOREGROUND
+                bold: True
+                size_hint_y: None
+                height: dp(32)
+
+            TextInput:
+                id: input_area
+                text: ""
+                multiline: False
+                input_filter: "float"
+                size_hint_y: None
+                height: dp(45)
+
+            Label:
+                text: root.t_perimeter
+                color: FOREGROUND
+                bold: True
+                size_hint_y: None
+                height: dp(32)
+
+            TextInput:
+                id: input_perimeter
+                text: ""
+                multiline: False
+                input_filter: "float"
+                size_hint_y: None
+                height: dp(45)
+
+            Button:
+                text: root.t_calculate
+                color: BACKGROUND
+                background_normal: ""
+                background_color: CURSOR
+                bold: True
+                size_hint_y: None
+                height: dp(48)
+                on_release: root.calculate()
+
+            Widget:
+
+        # Right Panel: Results
+        ScrollView:
+            size_hint_x: 0.5 if self.parent.width >= dp(650) else 1
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(5)
+                padding: dp(5)
+
+                Label:
+                    text: root.t_results
+                    color: FOREGROUND
+                    bold: True
+                    font_size: "18sp"
+                    size_hint_y: None
+                    height: dp(40)
+
+                Label:
+                    text: root.resultado_texto
+                    color: RED_8
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: "left"
+                    valign: "top"
+
+    # Bottom Footer Signature (MIT Corporate)
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: dp(30)
+        padding: dp(10)
+
+        Widget:
+
+        Button:
+            text: "MIT LICENSE © necrisscript — LICENSED FOR COMMERCIAL USE"
+            color: RED_7
+            background_normal: ""
+            background_color: 0, 0, 0, 0
+            font_size: "11sp"
+            bold: True
+            size_hint: None, None
+            size: self.texture_size[0] + dp(10), dp(30)
+            on_release: webbrowser.open("https://github.com/necrisscript")
+
+        Widget:
