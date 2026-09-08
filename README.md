@@ -2,6 +2,8 @@
 
 A robust, multilingual, and unit-swappable desktop application designed to calculate drywall partition materials accurately based on area and perimeter parameters.
 
+![Drywall Calculator Preview](assets/screenshot.png)
+
 ## 🚀 Features
 
 * Dual unit support (Metric and Imperial with automatic input scaling)
