@@ -1,3 +1,5 @@
+import os
+import sys
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
@@ -5,8 +7,15 @@ from kivy.uix.boxlayout import BoxLayout
 from app.services.drywall_service import calculate_drywall_materials
 from app.services.translation_service import get_text
 
-Builder.load_file("app/ui/theme.kv")
-Builder.load_file("app/ui/main.kv")
+def resource_path(relative_path):
+    if hasattr(sys, "_MEIPASS"):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
+
+Builder.load_file(resource_path("app/ui/theme.kv"))
+Builder.load_file(resource_path("app/ui/main.kv"))
 
 
 class DrywallLayout(BoxLayout):
