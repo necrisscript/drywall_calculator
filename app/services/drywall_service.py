@@ -1,35 +1,34 @@
 import math
 
 
-def calculate_drywall_materials(area, perimeter):
-  if perimeter <= 0 or area <= 0:
+def calculate_drywall_materials(height, width):
+  if height <= 0 or width <= 0:
     return None
 
-  height = area / perimeter
+  perimeter = (height * 2) + (width * 2)
+  area = (height * width) * 2
   profile_length = 2.60
 
-  # 1. Tracks: Floor + Ceiling (perimeter * 2) / 2.60m profile length
-  tracks = math.ceil(((perimeter * 2) / profile_length) * 0.35)
+  # 1. Tracks: Floor + Ceiling (width * 2) / 2.60m profile length
+  tracks = math.ceil((width * 2) / profile_length)
 
-  # 2. Studs: Based on perimeter ratio (standard spacing calculation)
-  base_studs_count = perimeter * 0.93
+  # 2. Studs: Marks every 0.40m along the width plus the 0 mark
+  base_studs_count = math.ceil(width / 0.40) + 1
 
   if height > profile_length:
-    studs = math.ceil(
-        (base_studs_count * ((height + 0.30) / profile_length)) * 1.05
-    )
-    t1_screws_splice = math.ceil(base_studs_count) * 4
+    studs = math.ceil((base_studs_count * (height + 0.30)) / profile_length)
+    t1_screws_splice = base_studs_count * 8
   else:
-    studs = math.ceil(base_studs_count * 0.95)
+    studs = math.ceil(base_studs_count)
     t1_screws_splice = 0
 
-  # 3. Boards: Single face, 2.88m2 per board (1.20x2.40) + waste factor
-  boards = math.ceil((area / 2.88) * 1.03)
+  # 3. Boards: Double face, 2.88m2 per board (1.20x2.40)
+  boards = math.ceil(area / 2.88)
 
   # 4. Anchors: Perimeter scaling (every ~0.37m)
   anchors = math.ceil(perimeter * 2.66)
 
-  # 5. T1 Screws: Structure assembly + splices
+  # 5. T1 Screws: Structure assembly + reinforcement for splices
   t1_screws = math.ceil(60 + t1_screws_splice)
 
   # 6. T2 Screws: Proportional to boards (~50 per board)
@@ -42,6 +41,8 @@ def calculate_drywall_materials(area, perimeter):
   compound = round(area * 0.60, 2)
 
   return {
+      "Total Area (m2)": round(area, 2),
+      "Perimeter (m)": round(perimeter, 2),
       "Tracks": tracks,
       "Studs": studs,
       "Boards": boards,
@@ -50,5 +51,4 @@ def calculate_drywall_materials(area, perimeter):
       "T2 Screws": t2_screws,
       "Paper Tape (m)": tape,
       "Joint Compound (kg)": compound,
-      "Estimated Height": round(height, 2),
   }

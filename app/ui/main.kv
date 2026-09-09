@@ -90,14 +90,14 @@
             size_hint_x: 0.5 if self.parent.width >= dp(650) else 1
 
             Label:
-                text: root.t_area
+                text: root.t_height
                 color: FOREGROUND
                 bold: True
                 size_hint_y: None
                 height: dp(32)
 
             TextInput:
-                id: input_area
+                id: input_height
                 text: ""
                 multiline: False
                 input_filter: "float"
@@ -105,14 +105,14 @@
                 height: dp(45)
 
             Label:
-                text: root.t_perimeter
+                text: root.t_width
                 color: FOREGROUND
                 bold: True
                 size_hint_y: None
                 height: dp(32)
 
             TextInput:
-                id: input_perimeter
+                id: input_width
                 text: ""
                 multiline: False
                 input_filter: "float"
