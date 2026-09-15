@@ -1,4 +1,4 @@
-# Calculadora de Placas de Yeso
+# Drywall Calculator
 
 Una aplicación de escritorio que permite calcular apróximadamente los materiales necesarios para construir tabiques de placas de yeso, usando parámetros de superficie y perímetro.
 
@@ -75,11 +75,6 @@ dist/drywall-calculator
 ```
 
 Después, puedes generar la AppImage resultante usando linuxdeploy.
-
-## ⚠️ Nota
-
-Este proyecto fue creado principalmente para experimentar, aprender y pasar un buen rato programando con *vibe coding*. Es funcional, pero no pretende ser una solución profesional ni estar listo para producción. Úsalo, modifícalo y rompe cosas bajo tu propia responsabilidad.
-
 
 ## 📄 Licencia
 
